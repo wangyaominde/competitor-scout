@@ -126,13 +126,13 @@
 
   function readiness() {
     const products = state.products;
+    // Demo 不展示大模型配置项
     const checks = [
-      { id: 'llm', title: '配置大模型', done: true, weight: 30, cta: 'settings', hint: 'Demo 已内置模拟 LLM' },
       {
         id: 'product',
         title: '完善产品画像',
         done: products.some((p) => p.name),
-        weight: 30,
+        weight: 40,
         cta: 'product',
         hint: '已配置',
       },
@@ -140,7 +140,7 @@
         id: 'product_rich',
         title: '规格与渠道（推荐）',
         done: products.some((p) => (p.channels || []).length || Object.keys(p.specs || {}).length),
-        weight: 15,
+        weight: 20,
         cta: 'product',
         hint: '已配置',
       },
@@ -148,7 +148,7 @@
         id: 'first_scan',
         title: '完成首次扫描',
         done: state.competitors.length > 0 || state.onboarding.firstScanDone,
-        weight: 15,
+        weight: 25,
         cta: 'scan',
         hint: '已完成',
       },
@@ -156,7 +156,7 @@
         id: 'confirm',
         title: '确认至少 1 个竞品',
         done: state.competitors.some((c) => c.status === 'confirmed'),
-        weight: 10,
+        weight: 15,
         cta: 'competitors',
         hint: '可在竞品库确认',
       },

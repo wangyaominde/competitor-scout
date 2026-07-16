@@ -518,6 +518,11 @@
   "你的产品名": "Your product name",
   "价/规/渠": "P/S/C",
   "竞品情报": "Competitor Scout",
+  "通知、备份与导出（Demo 无需配置大模型）": "Notifications, backup & export (no LLM setup in demo)",
+  "通知、备份与导出": "Notifications, backup & export",
+  "需要真实 LLM 扫描请下载桌面版：": "For real LLM scans, download the desktop app: ",
+  "本页为 <strong>GitHub Pages 演示</strong>，使用内置示例数据与模拟扫描，<strong>无需配置大模型</strong>，也没有真实 API Key。": "This is a <strong>GitHub Pages demo</strong> with sample data and simulated scans. <strong>No LLM configuration</strong> and no real API key.",
+  "浏览器 Demo": "Browser Demo",
   "智能扫描": "Smart Scan",
   "我的产品": "My Products",
   "击败路径": "Beat Roadmap",
@@ -818,6 +823,15 @@
     }
   }
 
+  /** GitHub Pages / 浏览器 Demo（无真实 LLM） */
+  function isDemo() {
+    return (
+      Boolean(state.bootstrap?.demo) ||
+      document.body.classList.contains('demo-web') ||
+      (typeof window !== 'undefined' && Boolean(window.DEMO))
+    );
+  }
+
   function applyShellI18n() {
     document.querySelectorAll('[data-i18n-zh]').forEach((el) => {
       const zh = el.getAttribute('data-i18n-zh') || '';
@@ -958,6 +972,16 @@
 
   function setReadiness(r) {
     if (!r) return;
+    // Pages Demo：不展示「配置大模型」清单项，避免用户以为要填 Key
+    if (isDemo() && Array.isArray(r.checks)) {
+      r = {
+        ...r,
+        checks: r.checks.filter((c) => c.id !== 'llm'),
+      };
+      if (r.next?.id === 'llm') {
+        r.next = r.checks.find((c) => !c.done) || null;
+      }
+    }
     state.readiness = r;
     const pct = r.percent || 0;
     const complete = r.complete === true || (pct >= 100 && !r.next);
@@ -1050,7 +1074,9 @@
     $$('.nav-item').forEach((b) => b.classList.toggle('active', b.dataset.page === page));
     const [tt, ss] = titles[page] || ['', ''];
     $('#page-title').textContent = t(tt);
-    $('#page-sub').textContent = t(ss);
+    let sub = ss;
+    if (page === 'settings' && isDemo()) sub = '通知、备份与导出（Demo 无需配置大模型）';
+    $('#page-sub').textContent = t(sub);
     renderPage();
   }
 
@@ -3674,19 +3700,23 @@
     const s = await call(api.getSettingsFull());
     const llm = s.llm || {};
     const n = s.notifications || {};
-    return `
-      <div class="card" style="margin-bottom:16px">
-          <h3>界面语言</h3>
-          <p class="muted" style="font-size:12px;margin-bottom:12px">切换后立即生效，并记住你的选择。</p>
-          <div class="lang-switch settings-lang">
-            <button type="button" class="lang-btn ${state.lang==='zh'?'active':''}" data-lang="zh">中文</button>
-            <button type="button" class="lang-btn ${state.lang==='en'?'active':''}" data-lang="en">English</button>
-          </div>
-        </div>
-        <div class="grid two">
-        <div class="card">
+    const demo = isDemo();
+    const llmCard = demo
+      ? `
+        <div class="card settings-demo-notice">
+          <h3>浏览器 Demo</h3>
+          <p class="muted" style="margin-bottom:10px;font-size:13px;line-height:1.65">
+            本页为 <strong>GitHub Pages 演示</strong>，使用内置示例数据与模拟扫描，<strong>无需配置大模型</strong>，也没有真实 API Key。
+          </p>
+          <p class="muted" style="font-size:12px;line-height:1.65">
+            需要真实 LLM 扫描请下载桌面版：
+            <a class="linkish" href="https://github.com/wangyaominde/competitor-scout/releases/tag/latest" target="_blank" rel="noopener">Releases</a>
+          </p>
+        </div>`
+      : `
+        <div class="card settings-llm-block">
           <h3>LLM 配置</h3>
-          <p class="muted" style="margin-bottom:12px;font-size:12px">兼容 OpenAI Chat Completions。支持 MiniMax / Kimi / DeepSeek / 通义 / Ollama 等。</p>
+          <p class="muted settings-llm-hint" style="margin-bottom:12px;font-size:12px">兼容 OpenAI Chat Completions。支持 MiniMax / Kimi / DeepSeek / 通义 / Ollama 等。</p>
           <div class="form-group">
             <label>Provider 预设</label>
             <select id="llm-preset">
@@ -3733,7 +3763,18 @@
             <button class="btn primary" id="btn-save-llm">保存</button>
           </div>
           <p class="muted" id="llm-test-msg" style="margin-top:10px;font-size:12px"></p>
+        </div>`;
+    return `
+      <div class="card" style="margin-bottom:16px">
+          <h3>界面语言</h3>
+          <p class="muted" style="font-size:12px;margin-bottom:12px">切换后立即生效，并记住你的选择。</p>
+          <div class="lang-switch settings-lang">
+            <button type="button" class="lang-btn ${state.lang==='zh'?'active':''}" data-lang="zh">中文</button>
+            <button type="button" class="lang-btn ${state.lang==='en'?'active':''}" data-lang="en">English</button>
+          </div>
         </div>
+        <div class="grid two">
+        ${llmCard}
         <div>
           <div class="card">
             <h3>通知</h3>
@@ -3935,6 +3976,12 @@
   }
 
   function renderOnboardingStep() {
+    // Demo 跳过「连接大模型」步骤（前进落到 1 时跳到产品；后退落到 1 时回欢迎）
+    if (isDemo() && state.onboardingStep === 1) {
+      const prev = state._obPrevStep;
+      state.onboardingStep = prev != null && prev > 1 ? 0 : 2;
+    }
+    state._obPrevStep = state.onboardingStep;
     const step = state.onboardingStep;
     const total = 4;
     $('#ob-progress').style.width = `${((step + 1) / total) * 100}%`;

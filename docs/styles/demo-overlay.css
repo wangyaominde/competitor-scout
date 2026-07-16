@@ -54,8 +54,28 @@ html, body {
   text-indent: -999px;
   overflow: hidden;
 }
-/* 设置页：提示 Demo 无真实 LLM · Settings hint: simulated LLM in browser demo */
-body.demo-web .settings-llm-hint::after {
-  content: " · 浏览器 Demo 使用模拟 LLM，无需填写 Key · Browser demo uses a simulated LLM — no API key needed";
-  color: var(--text-muted);
+
+/* Demo：彻底隐藏大模型配置相关 UI，防止用户误填 Key */
+body.demo-web .settings-llm-block,
+body.demo-web #llm-preset,
+body.demo-web #llm-base,
+body.demo-web #llm-key,
+body.demo-web #llm-model,
+body.demo-web #llm-temp,
+body.demo-web #llm-timeout,
+body.demo-web #btn-test-llm,
+body.demo-web #btn-save-llm,
+body.demo-web #llm-test-msg {
+  display: none !important;
+}
+body.demo-web .settings-demo-notice {
+  border: 1px solid rgba(91, 140, 255, 0.28);
+  background: linear-gradient(180deg, rgba(91, 140, 255, 0.08), transparent);
+}
+body.demo-web .settings-demo-notice h3 {
+  color: var(--primary-hover);
+}
+body.demo-web .settings-demo-notice a {
+  color: var(--primary-hover);
+  font-weight: 600;
 }
