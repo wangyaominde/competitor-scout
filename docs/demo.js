@@ -130,7 +130,7 @@
       .map(
         (c) => `
       <div class="comp-card" data-id="${esc(c.id)}">
-        <div class="comp-card head">
+        <div class="comp-head">
           <div class="avatar">${esc(c.name[0])}</div>
           <div style="min-width:0;flex:1">
             <div class="title">${esc(c.name)}</div>
@@ -149,7 +149,7 @@
       .map(
         (c) => `
       <div class="comp-card" data-id="${esc(c.id)}">
-        <div class="comp-card head">
+        <div class="comp-head">
           <div class="avatar">${esc(c.name[0])}</div>
           <div style="min-width:0;flex:1">
             <div class="title">${esc(c.name)}</div>

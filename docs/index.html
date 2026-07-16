@@ -6,14 +6,16 @@
   <meta name="description" content="竞品情报 Competitor Intel — 可点击的产品 Demo：扫描流水线、竞品库、参数对比表" />
   <meta name="theme-color" content="#0b0d13" />
   <title>Demo · 竞品情报</title>
-  <link rel="stylesheet" href="styles.css" />
+  <!-- 绝对路径：避免 /competitor-intel 无尾斜杠时 CSS/JS 解析到站点根目录 404 -->
+  <base href="/competitor-intel/" />
+  <link rel="stylesheet" href="/competitor-intel/styles.css" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%235b8cff'/%3E%3Cstop offset='1' stop-color='%23a78bfa'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-size='22' font-family='system-ui' font-weight='700' fill='white'%3ECI%3C/text%3E%3C/svg%3E" />
   <style>
     #toast {
       position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
       background: #1e2436; border: 1px solid rgba(255,255,255,0.12); color: #eef1f8;
       padding: 10px 16px; border-radius: 10px; font-size: 13px; opacity: 0;
-      pointer-events: none; transition: 0.25s; z-index: 60;
+      pointer-events: none; transition: 0.25s; z-index: 60; z-index: 100;
     }
     #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   </style>
@@ -143,7 +145,7 @@
   </div>
   <div id="toast"></div>
 
-  <script src="data.js"></script>
-  <script src="demo.js"></script>
+  <script src="/competitor-intel/data.js"></script>
+  <script src="/competitor-intel/demo.js"></script>
 </body>
 </html>

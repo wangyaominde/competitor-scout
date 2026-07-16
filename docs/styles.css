@@ -345,16 +345,19 @@ body {
   min-width: 0;
   cursor: pointer;
   transition: 0.12s;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 .comp-card:hover {
   border-color: rgba(91,140,255,0.35);
   transform: translateY(-1px);
 }
-.comp-card.head {
+.comp-head {
   display: flex;
   gap: 8px;
   align-items: flex-start;
-  margin-bottom: 8px;
+  min-width: 0;
 }
 .avatar {
   width: 32px; height: 32px;
