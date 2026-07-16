@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="竞品情报 Competitor Intel — 本地 Electron 桌面应用：LLM 扫描、BM25+RAG 威胁、逐产品匹配、3D 空间与击败路径。" />
+  <meta name="theme-color" content="#0b0d13" />
+  <title>竞品情报 · Competitor Intel</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%235b8cff'/%3E%3Cstop offset='1' stop-color='%23a78bfa'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-size='22' font-family='system-ui' font-weight='700' fill='white'%3ECI%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <div class="bg-glow" aria-hidden="true"></div>
+  <header class="nav">
+    <a class="brand" href="#top">
+      <span class="mark">CI</span>
+      <span>
+        <strong>竞品情报</strong>
+        <small>Competitor Intel</small>
+      </span>
+    </a>
+    <nav>
+      <a href="#features">功能</a>
+      <a href="#pipeline">流水线</a>
+      <a href="#privacy">隐私</a>
+      <a href="#start">开始</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn ghost" href="https://github.com/wangyaominde/competitor-intel" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn primary" href="https://github.com/wangyaominde/competitor-intel/releases" target="_blank" rel="noopener">下载 Release</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">单机桌面 · 本地数据 · OpenAI 兼容 LLM</p>
+        <h1>把竞品情报做成<br /><span class="grad">可扫描、可匹配、可击败</span> 的工作台</h1>
+        <p class="lead">
+          Competitor Intel 是一款本地 Electron 应用：用你自己的大模型做研究扫描，
+          用 BM25 + RAG 自动算威胁，并按<strong>我方产品一条一条</strong>遍历匹配，
+          再给出击败路径与 3D 威胁空间。
+        </p>
+        <div class="hero-cta">
+          <a class="btn primary lg" href="https://github.com/wangyaominde/competitor-intel" target="_blank" rel="noopener">查看源码</a>
+          <a class="btn ghost lg" href="#start">本地运行</a>
+        </div>
+        <ul class="hero-meta">
+          <li>macOS / Windows 构建</li>
+          <li>密钥与竞品数据不上传仓库</li>
+          <li>MIT 开源</li>
+        </ul>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="mock-window">
+          <div class="mock-titlebar">
+            <span></span><span></span><span></span>
+            <em>竞品情报 · 智能扫描</em>
+          </div>
+          <div class="mock-body">
+            <div class="pipe">
+              <div class="lamp on c1" data-label="启动"></div>
+              <div class="lamp on c2" data-label="发现"></div>
+              <div class="lamp pulse c3" data-label="补全"></div>
+              <div class="lamp c4" data-label="威胁"></div>
+              <div class="lamp c5" data-label="校验"></div>
+              <div class="lamp c6" data-label="完成"></div>
+            </div>
+            <div class="mock-cards">
+              <article class="mini-card">
+                <header><b>Rezi</b><span>52%</span></header>
+                <div class="bar"><i style="width:52%"></i></div>
+                <p>相对我方 · Resume Studio</p>
+              </article>
+              <article class="mini-card">
+                <header><b>Teal</b><span>44%</span></header>
+                <div class="bar"><i style="width:44%"></i></div>
+                <p>遍历匹配 · 3 个我方产品</p>
+              </article>
+            </div>
+            <div class="mock-log">
+              <div>› 匹配我方产品 (1/3): A ← Teal · RAG</div>
+              <div>› 匹配我方产品 (2/3): B ← Teal · RAG</div>
+              <div class="dim">› 心跳：任务仍在进行（非卡死）</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <div class="section-head">
+        <h2>核心能力</h2>
+        <p>从配置到扫描、匹配、可视化与定时盯盘，一条工作流走完。</p>
+      </div>
+      <div class="grid features">
+        <article class="card">
+          <div class="icon">01</div>
+          <h3>智能扫描</h3>
+          <p>Discover → Enrich → 威胁 → Agent 校验。指示灯 + 心跳日志，长请求不会像假死。</p>
+        </article>
+        <article class="card">
+          <div class="icon">02</div>
+          <h3>遍历匹配我方产品</h3>
+          <p>对每个竞品，按我方产品<strong>逐条</strong>做 BM25+RAG，输出 threat_vs 明细并取最高威胁。</p>
+        </article>
+        <article class="card">
+          <div class="icon">03</div>
+          <h3>3D 威胁空间</h3>
+          <p>多维能力坐标散点：我方基准 vs 竞品球体，拖拽旋转、缩放、点选详情。</p>
+        </article>
+        <article class="card">
+          <div class="icon">04</div>
+          <h3>击败路径</h3>
+          <p>AI 生成分阶段 roadmap：差距、必做项、价格与渠道策略，并可视化目标点。</p>
+        </article>
+        <article class="card">
+          <div class="icon">05</div>
+          <h3>Loop 引擎</h3>
+          <p>cron 定时扫描，高威胁桌面通知；后台与手动扫描共用历史与日志。</p>
+        </article>
+        <article class="card">
+          <div class="icon">06</div>
+          <h3>本地数据主权</h3>
+          <p>密钥与竞品库仅存本机。公开仓库不含 `.data`；打包后使用系统 userData。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="pipeline" class="section alt">
+      <div class="section-head">
+        <h2>威胁流水线</h2>
+        <p>自动判定负责打分，人工确认负责入库——职责清晰。</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <strong>规则基线</strong>
+          <span>价格、规格、渠道、定位等结构化特征分</span>
+        </li>
+        <li>
+          <strong>BM25 召回</strong>
+          <span>从竞品语料检索邻域证据</span>
+        </li>
+        <li>
+          <strong>RAG 判定</strong>
+          <span>证据 + 我方产品 + 目标竞品 → LLM 威胁分与理由</span>
+        </li>
+        <li>
+          <strong>逐产品遍历</strong>
+          <span>多产品时一条一条匹配，取最高并保留明细</span>
+        </li>
+        <li>
+          <strong>人工筛选</strong>
+          <span>待确认 → 确认入库 / 忽略</span>
+        </li>
+      </ol>
+    </section>
+
+    <section id="privacy" class="section">
+      <div class="split">
+        <div>
+          <h2>公开仓库，不公开你的密钥</h2>
+          <p class="lead tight">
+            GitHub 上的代码是极简源码树。API Key、竞品库、扫描历史都在本地
+            <code>.data/</code>（已 gitignore）或系统用户目录。
+          </p>
+          <ul class="checklist">
+            <li>CI 防泄漏：<code>check-secrets.js</code></li>
+            <li>三系统自测：Ubuntu / macOS / Windows</li>
+            <li>Release：tag <code>v*</code> 构建 dmg / exe</li>
+          </ul>
+        </div>
+        <div class="code-panel" role="img" aria-label="仓库结构示意">
+<pre><code>competitor-intel/
+  electron/          # 主进程与服务
+  src/               # UI
+  scripts/           # 自测与防泄漏
+  docs/              # 本展示站
+  .github/workflows/ # CI + 打包 + Pages
+  ❌ .data/          # 从不提交
+  ❌ node_modules/</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="start" class="section alt">
+      <div class="section-head">
+        <h2>快速开始</h2>
+        <p>需要 Node.js 20+ 与可访问的 OpenAI 兼容接口（或 Ollama）。</p>
+      </div>
+      <div class="grid two">
+        <div class="code-panel">
+          <div class="code-label">终端</div>
+<pre><code>git clone https://github.com/wangyaominde/competitor-intel.git
+cd competitor-intel
+npm install
+npm start</code></pre>
+        </div>
+        <div class="card soft">
+          <h3>首次路径</h3>
+          <ol class="plain">
+            <li>配置 LLM（Base URL / Key / Model）</li>
+            <li>添加一个或多个「我方产品」</li>
+            <li>智能扫描（可开遍历匹配）</li>
+            <li>竞品库确认 · 查看 3D / 击败路径</li>
+          </ol>
+          <div class="hero-cta" style="margin-top:18px">
+            <a class="btn primary" href="https://github.com/wangyaominde/competitor-intel/blob/main/README.md" target="_blank" rel="noopener">完整 README</a>
+            <a class="btn ghost" href="https://github.com/wangyaominde/competitor-intel/actions" target="_blank" rel="noopener">CI / Actions</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <strong>竞品情报 · Competitor Intel</strong>
+      <span>MIT · 本地优先</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/wangyaominde/competitor-intel" target="_blank" rel="noopener">源码</a>
+      <a href="https://github.com/wangyaominde/competitor-intel/releases" target="_blank" rel="noopener">Releases</a>
+      <a href="https://github.com/wangyaominde/competitor-intel/issues" target="_blank" rel="noopener">Issues</a>
+    </div>
+  </footer>
+  <script src="main.js"></script>
+</body>
+</html>

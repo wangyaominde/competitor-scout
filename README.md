@@ -1,9 +1,12 @@
 # 竞品情报 · Competitor Intel
 
-单机桌面应用：LLM 研究扫描 + BM25/RAG 威胁分析 + 竞品库与击败路径。
+单机桌面应用：LLM 研究扫描 + BM25/RAG 威胁分析 + **逐产品遍历匹配** + 竞品库与击败路径。
+
+**展示站（GitHub Pages）→ [https://wangyaominde.github.io/competitor-intel/](https://wangyaominde.github.io/competitor-intel/)**
 
 [![CI](https://github.com/wangyaominde/competitor-intel/actions/workflows/ci.yml/badge.svg)](https://github.com/wangyaominde/competitor-intel/actions/workflows/ci.yml)
 [![Build](https://github.com/wangyaominde/competitor-intel/actions/workflows/release.yml/badge.svg)](https://github.com/wangyaominde/competitor-intel/actions/workflows/release.yml)
+[![Pages](https://github.com/wangyaominde/competitor-intel/actions/workflows/pages.yml/badge.svg)](https://github.com/wangyaominde/competitor-intel/actions/workflows/pages.yml)
 
 > **隐私**：本仓库**不包含** API Key 与竞品数据。本地运行时密钥与库存在本机用户数据目录；开发模式下在项目 `.data/`（已 gitignore）。
 
@@ -12,11 +15,19 @@
 | 模块 | 说明 |
 |------|------|
 | 引导 / 就绪度 | 首次配置清单，完成后自动隐藏 |
-| 智能扫描 | Discover → Enrich → BM25+RAG → Agent 校验 |
+| 智能扫描 | Discover → Enrich → 威胁 → Agent 校验（指示灯 + 心跳） |
+| **遍历匹配** | 按我方产品**一条一条** RAG 匹配竞品，输出明细并取最高威胁 |
 | 竞品库 | 卡片 / 表格 / 3D 威胁空间 |
 | 击败路径 | AI 路线图 + 可视化 |
 | Loop | cron 定时扫描与通知 |
 | 数据 | 导出 / 备份 / 恢复（仅本地） |
+
+## 产品页
+
+静态展示站源码在 [`docs/`](./docs/)，由 Actions 部署到 GitHub Pages：
+
+- 站点：https://wangyaominde.github.io/competitor-intel/
+- 工作流：`.github/workflows/pages.yml`（push `docs/**` 或手动触发）
 
 ## 快速开始
 
