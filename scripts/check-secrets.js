@@ -124,8 +124,9 @@ for (const rel of files) {
 // 3. .gitignore 必须覆盖敏感目录
 const gi = fs.readFileSync(path.join(root, '.gitignore'), 'utf8');
 for (const must of ['.data/', 'node_modules/', 'dist/', '.env']) {
-  ok(gi.includes(must) || gi.includes(must.replace(/\/$/, '')), `.gitignore 含 ${must}`);
-  if (!(gi.includes(must) || gi.includes(must.replace(/\/$/, '')))) fail(`.gitignore 缺少 ${must}`);
+  const hit = gi.includes(must) || gi.includes(must.replace(/\/$/, ''));
+  if (hit) ok(`.gitignore 含 ${must}`);
+  else fail(`.gitignore 缺少 ${must}`);
 }
 
 console.log('');
