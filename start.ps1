@@ -5,7 +5,7 @@ Set-Location -LiteralPath $PSScriptRoot
 Write-Host '[1/2] Killing leftover electron.exe ...'
 Get-Process electron -ErrorAction SilentlyContinue | Stop-Process -Force
 
-Write-Host '[2/2] Starting Competitor Intel ...'
+Write-Host '[2/2] Starting 竞品情报 ...'
 Write-Host 'If it exits immediately, check .data\startup.log'
 Write-Host ''
 

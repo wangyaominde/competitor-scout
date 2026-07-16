@@ -75,21 +75,42 @@ process.on('unhandledRejection', (err) => {
   logBoot('unhandledRejection', err);
 });
 
+// 配置/库文件：新名 competitor-scout；兼容旧名 competitor-intel（仅本地迁移，非品牌）
+function migrateLegacyDataFiles(dir) {
+  const pairs = [
+    ['competitor-intel-config.json', 'competitor-scout-config.json'],
+    ['competitor-intel.json', 'competitor-scout.json'],
+  ];
+  for (const [from, to] of pairs) {
+    const src = path.join(dir, from);
+    const dest = path.join(dir, to);
+    try {
+      if (fs.existsSync(src) && !fs.existsSync(dest)) {
+        fs.copyFileSync(src, dest);
+        logBoot(`migrated ${from} → ${to}`);
+      }
+    } catch (err) {
+      logBoot(`migrate ${from} skip`, err);
+    }
+  }
+}
+
 // 若项目内尚无配置，尝试从旧 Roaming 目录拷贝一次，避免换路径后像「设置丢失」
 try {
   const oldDir = path.join(app.getPath('appData'), 'competitor-intel');
-  const oldCfg = path.join(oldDir, 'competitor-intel-config.json');
-  const newCfg = path.join(userDataDir, 'competitor-intel-config.json');
-  if (fs.existsSync(oldCfg) && !fs.existsSync(newCfg)) {
-    fs.copyFileSync(oldCfg, newCfg);
+  const legacyCfg = path.join(oldDir, 'competitor-intel-config.json');
+  const newCfg = path.join(userDataDir, 'competitor-scout-config.json');
+  if (fs.existsSync(legacyCfg) && !fs.existsSync(newCfg)) {
+    fs.copyFileSync(legacyCfg, newCfg);
     logBoot('migrated config from Roaming');
   }
+  migrateLegacyDataFiles(userDataDir);
 } catch (err) {
   logBoot('config migrate skip', err);
 }
 
 const store = new Store({
-  name: 'competitor-intel-config',
+  name: 'competitor-scout-config',
   cwd: userDataDir,
   defaults: {
     llm: {
@@ -178,7 +199,7 @@ function createWindow() {
     height: 880,
     minWidth: 1024,
     minHeight: 680,
-    title: '竞品情报 · Competitor Intel',
+    title: '竞品情报',
     backgroundColor: '#0b0d13',
     // macOS：隐藏标题栏但保留红绿灯；内容区需自备 traffic-light 安全区
     titleBarStyle: isMac ? 'hiddenInset' : 'default',
@@ -276,7 +297,8 @@ function maskLlm(llmCfg) {
 function initServices() {
   logBoot('initServices: database…');
   const userData = app.getPath('userData');
-  db = new Database(path.join(userData, 'competitor-intel.json'));
+  migrateLegacyDataFiles(userData);
+  db = new Database(path.join(userData, 'competitor-scout.json'));
   logBoot('initServices: products migrate…');
   Products.migrate(store);
   logBoot('initServices: llm…');

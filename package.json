@@ -1,5 +1,5 @@
 {
-  "name": "competitor-intel",
+  "name": "competitor-scout",
   "version": "1.0.0",
   "description": "竞品情报收集与威胁分析 — LLM 联网搜索 + Agent 确认 + 多维向量匹配 + 定时扫描",
   "main": "electron/main.js",
@@ -8,7 +8,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/wangyaominde/competitor-intel.git"
+    "url": "https://github.com/wangyaominde/competitor-scout.git"
   },
   "scripts": {
     "start": "electron .",
@@ -38,8 +38,8 @@
     "electron-builder": "^25.1.8"
   },
   "build": {
-    "appId": "com.wangyaominde.competitor-intel",
-    "productName": "Competitor Intel",
+    "appId": "com.wangyaominde.competitor-scout",
+    "productName": "竞品情报",
     "copyright": "Copyright © 2026 wangyaominde",
     "directories": {
       "output": "dist",

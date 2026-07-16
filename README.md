@@ -1,13 +1,13 @@
-# 竞品情报 · Competitor Intel
+# 竞品情报 · Competitor Scout
 
 单机桌面应用：LLM 研究扫描 + BM25/RAG 威胁判定 + **逐产品对比表**（分析用，不入判定）+ 竞品库与击败路径。
 
-**在线 Demo（GitHub Pages）→ [https://wangyaominde.github.io/competitor-intel/](https://wangyaominde.github.io/competitor-intel/)**  
+**在线 Demo（GitHub Pages）→ [https://wangyaominde.github.io/competitor-scout/](https://wangyaominde.github.io/competitor-scout/)**  
 浏览器里可点的产品壳：扫描动画 / 竞品库 / **参数对比表** / 威胁空间示意（示例数据，非真实 LLM）。
 
-[![CI](https://github.com/wangyaominde/competitor-intel/actions/workflows/ci.yml/badge.svg)](https://github.com/wangyaominde/competitor-intel/actions/workflows/ci.yml)
-[![Build](https://github.com/wangyaominde/competitor-intel/actions/workflows/release.yml/badge.svg)](https://github.com/wangyaominde/competitor-intel/actions/workflows/release.yml)
-[![Pages](https://github.com/wangyaominde/competitor-intel/actions/workflows/pages.yml/badge.svg)](https://github.com/wangyaominde/competitor-intel/actions/workflows/pages.yml)
+[![CI](https://github.com/wangyaominde/competitor-scout/actions/workflows/ci.yml/badge.svg)](https://github.com/wangyaominde/competitor-scout/actions/workflows/ci.yml)
+[![Build](https://github.com/wangyaominde/competitor-scout/actions/workflows/release.yml/badge.svg)](https://github.com/wangyaominde/competitor-scout/actions/workflows/release.yml)
+[![Pages](https://github.com/wangyaominde/competitor-scout/actions/workflows/pages.yml/badge.svg)](https://github.com/wangyaominde/competitor-scout/actions/workflows/pages.yml)
 
 > **隐私**：本仓库**不包含** API Key 与竞品数据。本地运行时密钥与库存在本机用户数据目录；开发模式下在项目 `.data/`（已 gitignore）。
 
@@ -27,14 +27,14 @@
 
 可交互 Demo 在 [`docs/`](./docs/)（仿桌面端 UI，非营销介绍页）：
 
-- 地址：https://wangyaominde.github.io/competitor-intel/
+- 地址：https://wangyaominde.github.io/competitor-scout/
 - 部署：`.github/workflows/pages.yml`
 
 ## 快速开始
 
 ```bash
-git clone https://github.com/wangyaominde/competitor-intel.git
-cd competitor-intel
+git clone https://github.com/wangyaominde/competitor-scout.git
+cd competitor-scout
 npm install
 npm start
 ```
@@ -65,7 +65,7 @@ npm run dist:win   # → dist/*.exe（需在 Windows 或对应 runner）
 npm run dist       # 当前平台
 ```
 
-安装后用户数据在系统目录（如 macOS `~/Library/Application Support/competitor-intel/`），**不会**写回安装包。
+安装后用户数据在系统目录（如 macOS `~/Library/Application Support/competitor-scout/`），**不会**写回安装包。
 
 ## 自测
 
@@ -94,7 +94,7 @@ npm run test:e2e
 
 | 触发 | 结果 |
 |------|------|
-| 推送到 `main` | 自动打包并发布 **[Latest](https://github.com/wangyaominde/competitor-intel/releases/tag/latest)**（正式 Release，非 pre-release） |
+| 推送到 `main` | 自动打包并发布 **[Latest](https://github.com/wangyaominde/competitor-scout/releases/tag/latest)**（正式 Release，非 pre-release） |
 | `git tag v1.x.x && git push --tags` | 带版本号的 **Release** |
 | Actions 手动 Run | 同上（按当前分支/tag） |
 
@@ -104,7 +104,7 @@ git tag v1.0.0
 git push origin v1.0.0
 ```
 
-安装包在 [Releases](https://github.com/wangyaominde/competitor-intel/releases)；Actions Artifact 保留 30 天。
+安装包在 [Releases](https://github.com/wangyaominde/competitor-scout/releases)；Actions Artifact 保留 30 天。
 
 公开仓库默认 **未代码签名**。macOS 若提示无法打开：系统设置 → 隐私与安全性 → 仍要打开。
 

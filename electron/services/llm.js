@@ -203,7 +203,7 @@ class LLMService {
     const timeoutMs = this._clampTimeout(
       options.timeoutMs ?? Math.max(cfg.timeoutMs, RESEARCH_TIMEOUT_MS)
     );
-    const system = `你是专业的竞品情报分析师（Competitor Intelligence Agent）。
+    const system = `你是专业的竞品情报分析师（Competitor Scout Agent）。
 你的任务是搜集、结构化并验证竞品信息。
 输出必须严格为 JSON，不要包含解释性文字。
 关注维度：产品名、公司、价格、规格参数、销售渠道、官网、差异点、威胁点。

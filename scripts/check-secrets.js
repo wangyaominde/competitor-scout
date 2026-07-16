@@ -22,6 +22,8 @@ console.log('\n========== 密钥与数据防泄漏检查 ==========\n');
 // 1. 敏感路径不得存在于将提交的内容
 const bannedPaths = [
   '.data',
+  '.data/competitor-scout-config.json',
+  '.data/competitor-scout.json',
   '.data/competitor-intel-config.json',
   '.data/competitor-intel.json',
   'dist',

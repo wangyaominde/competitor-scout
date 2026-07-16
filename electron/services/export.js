@@ -54,13 +54,13 @@ function exportCompetitors(list, format = 'json') {
 
 function exportFullBackup(storeSnapshot, dbSnapshot) {
   return {
-    filename: `competitor-intel-backup-${dateStamp()}.json`,
+    filename: `competitor-scout-backup-${dateStamp()}.json`,
     mime: 'application/json',
     content: JSON.stringify(
       {
         exportedAt: new Date().toISOString(),
         version: 1,
-        app: 'competitor-intel',
+        app: 'competitor-scout',
         settings: {
           // never dump raw secrets in plain export UI message; still include for backup
           llm: storeSnapshot.llm,
