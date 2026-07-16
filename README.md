@@ -3,7 +3,7 @@
 单机桌面应用：LLM 研究扫描 + BM25/RAG 威胁判定 + **逐产品对比表**（分析用，不入判定）+ 竞品库与击败路径。
 
 **在线 Demo（GitHub Pages）→ [https://wangyaominde.github.io/competitor-scout/](https://wangyaominde.github.io/competitor-scout/)**  
-与桌面端**同一套 UI 壳与 `app.css`**：侧栏 / 仪表盘 / 扫描流水线 / 竞品卡片 / 参数对比（示例数据，无真实 LLM）。
+与桌面端**同一套 `app.js` + `app.css` + 3D**；`mock-api` 注入示例数据，**无需配置大模型**。
 
 [![CI](https://github.com/wangyaominde/competitor-scout/actions/workflows/ci.yml/badge.svg)](https://github.com/wangyaominde/competitor-scout/actions/workflows/ci.yml)
 [![Build](https://github.com/wangyaominde/competitor-scout/actions/workflows/release.yml/badge.svg)](https://github.com/wangyaominde/competitor-scout/actions/workflows/release.yml)
