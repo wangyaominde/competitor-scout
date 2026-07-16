@@ -106,7 +106,18 @@ git push origin v1.0.0
 
 安装包在 [Releases](https://github.com/wangyaominde/competitor-scout/releases)；Actions Artifact 保留 30 天。
 
-公开仓库默认 **未代码签名**。macOS 若提示无法打开：系统设置 → 隐私与安全性 → 仍要打开。
+公开仓库默认 **未 Apple 公证 / 未代码签名**。安装包英文名：**CompetitorScout**。
+
+### macOS 提示「已损坏，无法打开」
+
+这是 **Gatekeeper 隔离**，不是安装包坏了。下载并拖到「应用程序」后在终端执行：
+
+```bash
+xattr -cr /Applications/CompetitorScout.app
+open /Applications/CompetitorScout.app
+```
+
+- Apple Silicon 请下 **arm64** 包；Intel Mac 请下 **x64** 包。
 
 ## 首次使用
 

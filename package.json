@@ -39,7 +39,8 @@
   },
   "build": {
     "appId": "com.wangyaominde.competitor-scout",
-    "productName": "竞品情报",
+    "productName": "CompetitorScout",
+    "executableName": "CompetitorScout",
     "copyright": "Copyright © 2026 wangyaominde",
     "directories": {
       "output": "dist",
@@ -58,54 +59,55 @@
     "extraMetadata": {
       "main": "electron/main.js"
     },
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
     "mac": {
       "category": "public.app-category.business",
+      "executableName": "CompetitorScout",
       "target": [
         {
           "target": "dmg",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
+          "arch": ["x64", "arm64"]
         },
         {
           "target": "zip",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
+          "arch": ["x64", "arm64"]
         }
       ],
       "hardenedRuntime": false,
       "gatekeeperAssess": false,
-      "identity": null
+      "identity": null,
+      "extendInfo": {
+        "CFBundleDisplayName": "CompetitorScout",
+        "CFBundleName": "CompetitorScout"
+      }
     },
     "win": {
+      "executableName": "CompetitorScout",
       "target": [
         {
           "target": "nsis",
-          "arch": [
-            "x64"
-          ]
+          "arch": ["x64"]
         },
         {
           "target": "portable",
-          "arch": [
-            "x64"
-          ]
+          "arch": ["x64"]
         }
       ]
     },
     "linux": {
-      "target": [
-        "AppImage"
-      ],
-      "category": "Office"
+      "target": ["AppImage"],
+      "category": "Office",
+      "executableName": "CompetitorScout"
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true
+      "createDesktopShortcut": true,
+      "shortcutName": "CompetitorScout",
+      "uninstallDisplayName": "CompetitorScout"
+    },
+    "dmg": {
+      "title": "CompetitorScout ${version}"
     },
     "publish": null
   }

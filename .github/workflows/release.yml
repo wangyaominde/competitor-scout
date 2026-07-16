@@ -137,10 +137,26 @@ jobs:
           body: |
             自动构建自 `main`（`${{ github.sha }}`）。
 
+            ## 下载说明
+            - **Apple Silicon (M1/M2/M3/M4)**：选 `*-arm64.dmg` 或 `*-arm64-mac.zip`
+            - **Intel Mac**：选 `*-x64.dmg` 或 `*-x64-mac.zip`
+            - **Windows**：`CompetitorScout-*-win-x64.exe`（安装包 / portable）
+
+            ## macOS 提示「已损坏，无法打开」？
+            应用**未做 Apple 公证**（开源免费分发常见）。这不是文件坏了，是系统隔离：
+
+            ```bash
+            # 把 App 拖到「应用程序」后执行（路径按实际修改）：
+            xattr -cr /Applications/CompetitorScout.app
+            open /Applications/CompetitorScout.app
+            ```
+
+            或：系统设置 → 隐私与安全性 → 仍要打开。
+
+            ## 其它
             - 每次推送到 main 会覆盖更新本 Release
-            - 也可打版本 tag：`git tag v1.0.0 && git push origin v1.0.0`
-            - macOS：`.dmg` / `.zip`（未公证，系统设置 → 仍要打开）
-            - Windows：安装包 / portable `.exe`
+            - 带版本号发版：`git tag v1.0.0 && git push origin v1.0.0`
+            - 安装包英文名：**CompetitorScout**（避免中文包名在部分系统异常）
           files: release-assets/*
           draft: false
           prerelease: false

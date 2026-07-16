@@ -199,7 +199,8 @@ function createWindow() {
     height: 880,
     minWidth: 1024,
     minHeight: 680,
-    title: '竞品情报',
+    // 安装包/进程名用英文 CompetitorScout；窗口标题可用中文
+    title: '竞品情报 · CompetitorScout',
     backgroundColor: '#0b0d13',
     // macOS：隐藏标题栏但保留红绿灯；内容区需自备 traffic-light 安全区
     titleBarStyle: isMac ? 'hiddenInset' : 'default',
