@@ -3,36 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="竞品情报 CompetitorScout — 与桌面版完全同款 UI 的浏览器 Demo（无真实 LLM）" />
+  <meta name="description" content="Competitor Scout · 竞品情报 — same UI as the desktop app (browser demo, no real LLM)" />
   <meta name="theme-color" content="#0b0d13" />
-  <title>Demo · 竞品情报</title>
+  <title>Demo · 竞品情报 · Competitor Scout</title>
   <base href="/competitor-scout/" />
-  <!-- 与 Electron 版同一份样式 -->
+  <!-- Same styles as Electron · 与 Electron 版同一份样式 -->
   <link rel="stylesheet" href="/competitor-scout/styles/app.css" />
   <link rel="stylesheet" href="/competitor-scout/styles/demo-overlay.css" />
   <link rel="icon" type="image/png" href="/competitor-scout/favicon.png" />
   <link rel="apple-touch-icon" href="/competitor-scout/icon-192.png" />
 </head>
-<body>
+<body class="demo-web">
   <div class="demo-ribbon">
     <div>
       <span class="pill">DEMO</span>
-      <strong style="margin-left:8px">与桌面端同款界面</strong>
-      <span> · 示例数据 · 无真实大模型</span>
+      <strong style="margin-left:8px">与桌面端同款界面 · Same UI as desktop</strong>
+      <span> · 示例数据 · Sample data · 无真实大模型 · No real LLM</span>
     </div>
     <div>
       <a href="https://github.com/wangyaominde/competitor-scout" target="_blank" rel="noopener">GitHub</a>
       ·
-      <a href="https://github.com/wangyaominde/competitor-scout/releases/tag/latest" target="_blank" rel="noopener">下载桌面版</a>
+      <a href="https://github.com/wangyaominde/competitor-scout/releases/tag/latest" target="_blank" rel="noopener">下载桌面版 · Download desktop</a>
     </div>
   </div>
 
-  <!-- 以下结构与 src/index.html 一致 -->
+  <!-- Structure matches src/index.html · 以下结构与 src/index.html 一致 -->
   <div id="boot" class="boot">
     <div class="boot-card">
       <div class="brand-mark lg has-icon"></div>
-      <div class="boot-title">竞品情报</div>
-      <div class="boot-sub">正在加载工作区…</div>
+      <div class="boot-title">竞品情报 · Competitor Scout</div>
+      <div class="boot-sub">正在加载工作区… Loading workspace…</div>
       <div class="boot-bar"><i></i></div>
     </div>
   </div>
@@ -49,28 +49,28 @@
         </div>
       </div>
 
-      <div class="ready-mini" id="ready-mini" title="配置就绪度">
+      <div class="ready-mini" id="ready-mini" title="配置就绪度 · Readiness">
         <div class="ready-mini-top">
-          <span>就绪度</span>
+          <span>就绪度 · Ready</span>
           <strong id="ready-mini-pct">0%</strong>
         </div>
         <div class="ready-track"><i id="ready-mini-bar"></i></div>
       </div>
 
       <nav class="nav" id="nav">
-        <button class="nav-item active" data-page="dashboard"><span class="nav-icon">◈</span> 仪表盘</button>
-        <button class="nav-item" data-page="competitors"><span class="nav-icon">◎</span> 竞品库</button>
-        <button class="nav-item" data-page="scan"><span class="nav-icon">⟳</span> 智能扫描</button>
-        <button class="nav-item" data-page="product"><span class="nav-icon">◇</span> 我的产品</button>
-        <button class="nav-item" data-page="roadmap"><span class="nav-icon">⇢</span> 击败路径</button>
-        <button class="nav-item" data-page="loop"><span class="nav-icon">◷</span> Loop 引擎</button>
-        <button class="nav-item" data-page="settings"><span class="nav-icon">⚙</span> 设置</button>
+        <button class="nav-item active" data-page="dashboard"><span class="nav-icon">◈</span> 仪表盘 · Dashboard</button>
+        <button class="nav-item" data-page="competitors"><span class="nav-icon">◎</span> 竞品库 · Competitors</button>
+        <button class="nav-item" data-page="scan"><span class="nav-icon">⟳</span> 智能扫描 · Scan</button>
+        <button class="nav-item" data-page="product"><span class="nav-icon">◇</span> 我的产品 · Products</button>
+        <button class="nav-item" data-page="roadmap"><span class="nav-icon">⇢</span> 击败路径 · Roadmap</button>
+        <button class="nav-item" data-page="loop"><span class="nav-icon">◷</span> Loop 引擎 · Loop</button>
+        <button class="nav-item" data-page="settings"><span class="nav-icon">⚙</span> 设置 · Settings</button>
       </nav>
 
       <div class="sidebar-footer">
         <div class="loop-pill" id="loop-pill">
           <span class="dot"></span>
-          <span id="loop-pill-text">Loop 未启动</span>
+          <span id="loop-pill-text">Loop 未启动 · Off</span>
         </div>
       </div>
     </aside>
@@ -78,15 +78,15 @@
     <main class="main">
       <header class="topbar">
         <div>
-          <h1 id="page-title">仪表盘</h1>
-          <p class="subtitle" id="page-sub">威胁态势与待确认竞品</p>
+          <h1 id="page-title">仪表盘 · Dashboard</h1>
+          <p class="subtitle" id="page-sub">威胁态势与待确认竞品 · Threat overview & pending review</p>
         </div>
         <div class="topbar-actions">
-          <button class="btn ghost" id="btn-notify-toggle" title="通知">
+          <button class="btn ghost" id="btn-notify-toggle" title="通知 · Notifications">
             🔔 <span id="notify-badge" class="badge hidden">0</span>
           </button>
-          <button class="btn" id="btn-export" title="导出">导出</button>
-          <button class="btn primary" id="btn-quick-scan">立即扫描</button>
+          <button class="btn" id="btn-export" title="导出 · Export">导出 · Export</button>
+          <button class="btn primary" id="btn-quick-scan">立即扫描 · Scan</button>
         </div>
       </header>
 
@@ -97,11 +97,11 @@
 
     <div id="notify-drawer" class="drawer hidden">
       <div class="drawer-head">
-        <h3>通知</h3>
+        <h3>通知 · Notifications</h3>
         <button class="btn icon" id="btn-notify-close">✕</button>
       </div>
       <div class="drawer-body" id="notify-list">
-        <p class="muted empty-hint">暂无通知</p>
+        <p class="muted empty-hint">暂无通知 · No notifications</p>
       </div>
     </div>
 
@@ -117,17 +117,17 @@
         </div>
         <div id="ob-body"></div>
         <div class="onboarding-actions">
-          <button class="btn ghost" id="ob-skip">稍后再说</button>
+          <button class="btn ghost" id="ob-skip">稍后再说 · Skip</button>
           <div class="row-actions">
-            <button class="btn" id="ob-back">上一步</button>
-            <button class="btn primary" id="ob-next">继续</button>
+            <button class="btn" id="ob-back">上一步 · Back</button>
+            <button class="btn primary" id="ob-next">继续 · Continue</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 顺序：示例数据 → mock API → Three 可视化 → 与桌面相同的 app.js -->
+  <!-- Sample data → mock API → Three viz → same app.js as desktop -->
   <script src="/competitor-scout/data.js"></script>
   <script src="/competitor-scout/js/mock-api.js"></script>
   <script type="module" src="/competitor-scout/js/threat-viz.js"></script>

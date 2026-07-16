@@ -54,8 +54,8 @@ html, body {
   text-indent: -999px;
   overflow: hidden;
 }
-/* 设置页：提示 Demo 无真实 LLM（页面仍与桌面一致） */
+/* 设置页：提示 Demo 无真实 LLM · Settings hint: simulated LLM in browser demo */
 body.demo-web .settings-llm-hint::after {
-  content: " · 浏览器 Demo 使用模拟 LLM，无需填写 Key";
+  content: " · 浏览器 Demo 使用模拟 LLM，无需填写 Key · Browser demo uses a simulated LLM — no API key needed";
   color: var(--text-muted);
 }

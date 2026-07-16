@@ -200,7 +200,7 @@ function createWindow() {
     minWidth: 1024,
     minHeight: 680,
     // 安装包/进程名用英文 CompetitorScout；窗口标题可用中文
-    title: '竞品情报 · CompetitorScout',
+    title: '竞品情报 · Competitor Scout',
     backgroundColor: '#0b0d13',
     // macOS：隐藏标题栏但保留红绿灯；内容区需自备 traffic-light 安全区
     titleBarStyle: isMac ? 'hiddenInset' : 'default',
@@ -332,12 +332,12 @@ function initServices() {
         if (result.newThreats?.length) {
           const top = result.newThreats[0];
           notifyUser(
-            `发现高威胁竞品：${top.name}`,
+            `发现高威胁竞品 · High threat: ${top.name}`,
             `威胁指数 ${(top.threatScore * 100).toFixed(0)}% · ${top.reason || '多维匹配命中'}`,
             'high'
           );
         } else if (result.newCount > 0) {
-          notifyUser('竞品扫描完成', `新发现 ${result.newCount} 个竞品候选，请确认入库`, 'info');
+          notifyUser('竞品扫描完成 · Scan complete', `新发现 New ${result.newCount} candidates — confirm in library`, 'info');
         }
       } catch (err) {
         logBoot('onScanComplete error', err);
@@ -485,7 +485,7 @@ function registerIpc() {
 
     if (!filePaths.length) {
       const { canceled, filePaths: picked } = await dialog.showOpenDialog(mainWindow, {
-        title: '选择规格书 / 产品文档',
+        title: '选择规格书 / 产品文档 · Choose specs / product docs',
         properties: ['openFile', 'multiSelections'],
         filters: [
           {
@@ -577,7 +577,7 @@ function registerIpc() {
 
   handle('competitors:get', (_e, id) => {
     const row = db.getCompetitor(id);
-    if (!row) throw new AppError(Codes.NOT_FOUND, '竞品不存在');
+    if (!row) throw new AppError(Codes.NOT_FOUND, '竞品不存在 · Competitor not found');
     return row;
   });
 
@@ -614,19 +614,19 @@ function registerIpc() {
   });
 
   handle('competitors:delete', (_e, id) => {
-    if (!db.getCompetitor(id)) throw new AppError(Codes.NOT_FOUND, '竞品不存在');
+    if (!db.getCompetitor(id)) throw new AppError(Codes.NOT_FOUND, '竞品不存在 · Competitor not found');
     db.deleteCompetitor(id);
     return { deleted: true };
   });
 
   handle('competitors:confirm', (_e, id) => {
     const row = db.confirmCompetitor(id);
-    if (!row) throw new AppError(Codes.NOT_FOUND, '竞品不存在');
+    if (!row) throw new AppError(Codes.NOT_FOUND, '竞品不存在 · Competitor not found');
     return row;
   });
 
   handle('competitors:reject', (_e, id) => {
-    if (!db.getCompetitor(id)) throw new AppError(Codes.NOT_FOUND, '竞品不存在');
+    if (!db.getCompetitor(id)) throw new AppError(Codes.NOT_FOUND, '竞品不存在 · Competitor not found');
     db.rejectCompetitor(id);
     return { rejected: true };
   });
@@ -685,7 +685,7 @@ function registerIpc() {
 
   handle('agent:verify-one', async (_e, id) => {
     const c = db.getCompetitor(id);
-    if (!c) throw new AppError(Codes.NOT_FOUND, '未找到竞品');
+    if (!c) throw new AppError(Codes.NOT_FOUND, '未找到竞品 · Competitor not found');
     const verified = await searchAgent.verifyCompetitor(c, (p) =>
       sendToRenderer('scan:progress', p)
     );
@@ -703,7 +703,7 @@ function registerIpc() {
     const active = Products.getActive(store);
     sendToRenderer('threat:progress', {
       stage: 'start',
-      message: `全库重算威胁判定（${all.length} 竞品）`,
+      message: `全库重算威胁判定 · Rescoring all (${all.length} competitors)`,
       percent: 0,
       productCount: products.length,
       competitorCount: all.length,
@@ -733,7 +733,7 @@ function registerIpc() {
 
     sendToRenderer('threat:progress', {
       stage: 'done',
-      message: `判定已更新：${ranked.length} 个竞品`,
+      message: `判定已更新 · Updated: ${ranked.length} competitors`,
       percent: 100,
     });
 
@@ -749,7 +749,7 @@ function registerIpc() {
     const products = Products.list(store);
     const id = typeof competitorId === 'string' ? competitorId : competitorId?.id;
     const c = db.getCompetitor(id || competitorId);
-    if (!c) throw new AppError(Codes.NOT_FOUND, '未找到竞品');
+    if (!c) throw new AppError(Codes.NOT_FOUND, '未找到竞品 · Competitor not found');
     if (!products.length) throw new AppError(Codes.PRECONDITION, '请先配置产品');
     const corpus = db.listCompetitors({});
     const active = Products.getActive(store);
@@ -796,13 +796,13 @@ function registerIpc() {
     const products = Products.list(store);
     if (!products.length) throw new AppError(Codes.PRECONDITION, '请先配置至少一个产品');
     const all = db.listCompetitors({});
-    if (!all.length) throw new AppError(Codes.PRECONDITION, '竞品库为空，请先扫描或添加竞品');
+    if (!all.length) throw new AppError(Codes.PRECONDITION, '竞品库为空 · Library empty — scan or add competitors first');
 
     const { buildParamCompareMatrix } = require('./services/param-compare');
 
     sendToRenderer('threat:progress', {
       stage: 'start',
-      message: `参数对比：${products.length} 我方产品 × ${all.length} 竞品（规格逐项）`,
+      message: `参数对比 · Param compare: ${products.length} products × ${all.length} competitors`,
       percent: 0,
       productCount: products.length,
       competitorCount: all.length,
@@ -844,7 +844,7 @@ function registerIpc() {
     );
     if (preferred.length >= 3) competitors = preferred;
     if (!competitors.length) {
-      throw new AppError(Codes.PRECONDITION, '竞品库为空，请先扫描或添加竞品');
+      throw new AppError(Codes.PRECONDITION, '竞品库为空 · Library empty — scan or add competitors first');
     }
 
     sendToRenderer('roadmap:progress', {
@@ -920,7 +920,7 @@ function registerIpc() {
     const list = db.listCompetitors({});
     const file = exportCompetitors(list, format);
     const { canceled, filePath } = await dialog.showSaveDialog(mainWindow, {
-      title: '导出竞品',
+      title: '导出竞品 · Export competitors',
       defaultPath: file.filename,
       filters:
         format === 'csv'
@@ -945,7 +945,7 @@ function registerIpc() {
       db.getSnapshot()
     );
     const { canceled, filePath } = await dialog.showSaveDialog(mainWindow, {
-      title: '备份全部数据',
+      title: '备份全部数据 · Backup all data',
       defaultPath: file.filename,
       filters: [{ name: 'JSON Backup', extensions: ['json'] }],
     });
@@ -956,7 +956,7 @@ function registerIpc() {
 
   handle('import:backup', async () => {
     const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
-      title: '从备份恢复',
+      title: '从备份恢复 · Restore from backup',
       filters: [{ name: 'JSON Backup', extensions: ['json'] }],
       properties: ['openFile'],
     });

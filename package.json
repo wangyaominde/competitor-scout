@@ -1,7 +1,7 @@
 {
   "name": "competitor-scout",
   "version": "1.0.0",
-  "description": "竞品情报收集与威胁分析 — LLM 联网搜索 + Agent 确认 + 多维向量匹配 + 定时扫描",
+  "description": "Competitor Scout · 竞品情报 — LLM research scan + BM25/RAG threat + param compare + beat roadmap",
   "main": "electron/main.js",
   "author": "wangyaominde",
   "license": "MIT",
