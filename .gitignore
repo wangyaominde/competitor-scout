@@ -1,0 +1,45 @@
+# dependencies
+node_modules/
+
+# local secrets & user data (API keys, competitors, scan history)
+.data/
+*.local.json
+.env
+.env.*
+!.env.example
+
+# electron / builder outputs
+dist/
+out/
+release/
+*.dmg
+*.exe
+*.AppImage
+*.blockmap
+*.snap
+*.deb
+*.rpm
+*.msi
+*.app/
+
+# logs & caches
+*.log
+npm-debug.log*
+.npm/
+.cache/
+.turbo/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# test temp
+coverage/
+tmp/
+temp/
+.ci-artifacts/
