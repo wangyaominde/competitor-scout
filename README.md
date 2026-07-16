@@ -25,10 +25,11 @@
 
 ## 在线 Demo
 
-可交互 Demo 在 [`docs/`](./docs/)：复用桌面端 `styles/app.css` + 同结构侧栏/顶栏，仅用 Demo 数据驱动。
+可交互 Demo 在 [`docs/`](./docs/)：
 
+- 直接跑桌面端 `app.js` / `threat-viz.js` / `app.css`
+- `mock-api.js` 模拟 `window.api`（无真实 LLM、无本地文件）
 - 地址：https://wangyaominde.github.io/competitor-scout/
-- 部署：`.github/workflows/pages.yml`
 
 ## 快速开始
 

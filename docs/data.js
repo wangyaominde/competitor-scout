@@ -3,6 +3,7 @@ window.DEMO = {
   product: {
     id: 'p1',
     name: 'TailorCV',
+    description: 'iOS 端 AI 简历与求职工具（Demo）',
     category: 'AI 简历 / 求职工具',
     price: null,
     channels: ['App Store (iOS)'],

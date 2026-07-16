@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="竞品情报 CompetitorScout — 与桌面版同壳的交互 Demo" />
+  <meta name="description" content="竞品情报 CompetitorScout — 与桌面版完全同款 UI 的浏览器 Demo（无真实 LLM）" />
   <meta name="theme-color" content="#0b0d13" />
   <title>Demo · 竞品情报</title>
   <base href="/competitor-scout/" />
-  <!-- 与桌面端同一套样式 -->
+  <!-- 与 Electron 版同一份样式 -->
   <link rel="stylesheet" href="/competitor-scout/styles/app.css" />
   <link rel="stylesheet" href="/competitor-scout/styles/demo-overlay.css" />
   <link rel="icon" type="image/png" href="/competitor-scout/favicon.png" />
@@ -17,48 +17,60 @@
   <div class="demo-ribbon">
     <div>
       <span class="pill">DEMO</span>
-      <strong style="margin-left:8px">竞品情报</strong>
-      <span> · 浏览器模拟桌面端（示例数据，无真实 LLM）</span>
+      <strong style="margin-left:8px">与桌面端同款界面</strong>
+      <span> · 示例数据 · 无真实大模型</span>
     </div>
     <div>
       <a href="https://github.com/wangyaominde/competitor-scout" target="_blank" rel="noopener">GitHub</a>
       ·
-      <a href="https://github.com/wangyaominde/competitor-scout/releases/tag/latest" target="_blank" rel="noopener">下载 Release</a>
+      <a href="https://github.com/wangyaominde/competitor-scout/releases/tag/latest" target="_blank" rel="noopener">下载桌面版</a>
     </div>
   </div>
 
-  <div id="app" class="demo-app">
+  <!-- 以下结构与 src/index.html 一致 -->
+  <div id="boot" class="boot">
+    <div class="boot-card">
+      <div class="brand-mark lg has-icon"></div>
+      <div class="boot-title">竞品情报</div>
+      <div class="boot-sub">正在加载工作区…</div>
+      <div class="boot-bar"><i></i></div>
+    </div>
+  </div>
+
+  <div id="app" class="hidden">
+    <div class="titlebar-drag" aria-hidden="true"></div>
+
     <aside class="sidebar">
       <div class="brand">
-        <div class="brand-mark has-icon" title="CompetitorScout"></div>
+        <div class="brand-mark has-icon"></div>
         <div class="brand-text">
           <strong>竞品情报</strong>
           <span>Competitor Scout</span>
         </div>
       </div>
 
-      <div class="ready-mini" title="Demo 已就绪">
+      <div class="ready-mini" id="ready-mini" title="配置就绪度">
         <div class="ready-mini-top">
           <span>就绪度</span>
-          <strong>100%</strong>
+          <strong id="ready-mini-pct">0%</strong>
         </div>
-        <div class="ready-track"><i style="width:100%"></i></div>
+        <div class="ready-track"><i id="ready-mini-bar"></i></div>
       </div>
 
       <nav class="nav" id="nav">
-        <button type="button" class="nav-item active" data-page="dashboard"><span class="nav-icon">◈</span> 仪表盘</button>
-        <button type="button" class="nav-item" data-page="competitors"><span class="nav-icon">◎</span> 竞品库</button>
-        <button type="button" class="nav-item" data-page="scan"><span class="nav-icon">⟳</span> 智能扫描</button>
-        <button type="button" class="nav-item" data-page="compare"><span class="nav-icon">☰</span> 参数对比</button>
-        <button type="button" class="nav-item" data-page="product"><span class="nav-icon">◇</span> 我的产品</button>
-        <button type="button" class="nav-item" data-page="space"><span class="nav-icon">✦</span> 威胁空间</button>
-        <button type="button" class="nav-item" data-page="settings"><span class="nav-icon">⚙</span> 设置</button>
+        <button class="nav-item active" data-page="dashboard"><span class="nav-icon">◈</span> 仪表盘</button>
+        <button class="nav-item" data-page="competitors"><span class="nav-icon">◎</span> 竞品库</button>
+        <button class="nav-item" data-page="scan"><span class="nav-icon">⟳</span> 智能扫描</button>
+        <button class="nav-item" data-page="product"><span class="nav-icon">◇</span> 我的产品</button>
+        <button class="nav-item" data-page="roadmap"><span class="nav-icon">⇢</span> 击败路径</button>
+        <button class="nav-item" data-page="loop"><span class="nav-icon">◷</span> Loop 引擎</button>
+        <button class="nav-item" data-page="settings"><span class="nav-icon">⚙</span> 设置</button>
       </nav>
 
       <div class="sidebar-footer">
         <div class="loop-pill" id="loop-pill">
           <span class="dot"></span>
-          <span>Loop 未启动 · Demo</span>
+          <span id="loop-pill-text">Loop 未启动</span>
         </div>
       </div>
     </aside>
@@ -70,23 +82,55 @@
           <p class="subtitle" id="page-sub">威胁态势与待确认竞品</p>
         </div>
         <div class="topbar-actions">
-          <button type="button" class="btn ghost" title="通知">🔔</button>
-          <button type="button" class="btn" id="btn-export-demo">导出</button>
-          <button type="button" class="btn primary" id="btn-quick-scan">立即扫描</button>
+          <button class="btn ghost" id="btn-notify-toggle" title="通知">
+            🔔 <span id="notify-badge" class="badge hidden">0</span>
+          </button>
+          <button class="btn" id="btn-export" title="导出">导出</button>
+          <button class="btn primary" id="btn-quick-scan">立即扫描</button>
         </div>
       </header>
+
       <div class="content" id="content"></div>
     </main>
+
+    <div id="toasts" class="toasts"></div>
+
+    <div id="notify-drawer" class="drawer hidden">
+      <div class="drawer-head">
+        <h3>通知</h3>
+        <button class="btn icon" id="btn-notify-close">✕</button>
+      </div>
+      <div class="drawer-body" id="notify-list">
+        <p class="muted empty-hint">暂无通知</p>
+      </div>
+    </div>
+
+    <div id="modal" class="modal hidden">
+      <div class="modal-backdrop" data-close-modal></div>
+      <div class="modal-card" id="modal-card"></div>
+    </div>
+
+    <div id="onboarding" class="onboarding hidden">
+      <div class="onboarding-card">
+        <div class="onboarding-progress">
+          <i id="ob-progress"></i>
+        </div>
+        <div id="ob-body"></div>
+        <div class="onboarding-actions">
+          <button class="btn ghost" id="ob-skip">稍后再说</button>
+          <div class="row-actions">
+            <button class="btn" id="ob-back">上一步</button>
+            <button class="btn primary" id="ob-next">继续</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div id="toasts" class="toasts"></div>
-
-  <div id="modal" class="modal hidden">
-    <div class="modal-backdrop" data-close-modal></div>
-    <div class="modal-card" id="modal-card"></div>
-  </div>
-
+  <!-- 顺序：示例数据 → mock API → Three 可视化 → 与桌面相同的 app.js -->
   <script src="/competitor-scout/data.js"></script>
-  <script src="/competitor-scout/js/demo-app.js"></script>
+  <script src="/competitor-scout/js/mock-api.js"></script>
+  <script type="module" src="/competitor-scout/js/threat-viz.js"></script>
+  <script src="/competitor-scout/js/app.js"></script>
 </body>
 </html>
