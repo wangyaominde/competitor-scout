@@ -22,7 +22,7 @@
     "dist": "electron-builder",
     "dist:mac": "electron-builder --mac",
     "dist:win": "electron-builder --win",
-    "dist:linux": "electron-builder --linux"
+    "dist:all": "electron-builder --mac --win"
   },
   "dependencies": {
     "adm-zip": "^0.6.0",
@@ -67,10 +67,6 @@
         {
           "target": "dmg",
           "arch": ["x64", "arm64"]
-        },
-        {
-          "target": "zip",
-          "arch": ["x64", "arm64"]
         }
       ],
       "hardenedRuntime": false,
@@ -87,17 +83,8 @@
         {
           "target": "nsis",
           "arch": ["x64"]
-        },
-        {
-          "target": "portable",
-          "arch": ["x64"]
         }
       ]
-    },
-    "linux": {
-      "target": ["AppImage"],
-      "category": "Office",
-      "executableName": "CompetitorScout"
     },
     "nsis": {
       "oneClick": false,

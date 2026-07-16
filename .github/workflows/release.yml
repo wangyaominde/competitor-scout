@@ -47,7 +47,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build macOS (dmg + zip)
+      - name: Build macOS (dmg · x64 + arm64)
         run: npm run dist:mac
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
@@ -59,8 +59,6 @@ jobs:
           name: macos-build
           path: |
             dist/*.dmg
-            dist/*.zip
-            dist/latest-mac.yml
           if-no-files-found: error
           retention-days: 30
 
@@ -79,7 +77,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Windows (nsis + portable)
+      - name: Build Windows (nsis · x64)
         run: npm run dist:win
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -90,7 +88,6 @@ jobs:
           name: windows-build
           path: |
             dist/*.exe
-            dist/latest.yml
           if-no-files-found: error
           retention-days: 30
 
@@ -137,26 +134,24 @@ jobs:
           body: |
             自动构建自 `main`（`${{ github.sha }}`）。
 
-            ## 下载说明
-            - **Apple Silicon (M1/M2/M3/M4)**：选 `*-arm64.dmg` 或 `*-arm64-mac.zip`
-            - **Intel Mac**：选 `*-x64.dmg` 或 `*-x64-mac.zip`
-            - **Windows**：`CompetitorScout-*-win-x64.exe`（安装包 / portable）
+            ## 下载（共 3 个包）
+            | 平台 | 文件 |
+            |------|------|
+            | **Mac Apple Silicon (M 系列)** | `CompetitorScout-*-mac-arm64.dmg` |
+            | **Mac Intel** | `CompetitorScout-*-mac-x64.dmg` |
+            | **Windows x64** | `CompetitorScout-*-win-x64.exe` |
 
             ## macOS 提示「已损坏，无法打开」？
-            应用**未做 Apple 公证**（开源免费分发常见）。这不是文件坏了，是系统隔离：
+            未做 Apple 公证时的正常提示，不是文件损坏：
 
             ```bash
-            # 把 App 拖到「应用程序」后执行（路径按实际修改）：
             xattr -cr /Applications/CompetitorScout.app
             open /Applications/CompetitorScout.app
             ```
 
-            或：系统设置 → 隐私与安全性 → 仍要打开。
-
             ## 其它
-            - 每次推送到 main 会覆盖更新本 Release
-            - 带版本号发版：`git tag v1.0.0 && git push origin v1.0.0`
-            - 安装包英文名：**CompetitorScout**（避免中文包名在部分系统异常）
+            - 推送到 main 会覆盖更新本 Release
+            - 带版本号：`git tag v1.0.0 && git push origin v1.0.0`
           files: release-assets/*
           draft: false
           prerelease: false

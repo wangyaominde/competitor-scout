@@ -117,7 +117,13 @@ xattr -cr /Applications/CompetitorScout.app
 open /Applications/CompetitorScout.app
 ```
 
-- Apple Silicon 请下 **arm64** 包；Intel Mac 请下 **x64** 包。
+发布物仅 **3 个包**：
+
+| 平台 | 文件 |
+|------|------|
+| Mac M 系列 | `CompetitorScout-*-mac-arm64.dmg` |
+| Mac Intel | `CompetitorScout-*-mac-x64.dmg` |
+| Windows | `CompetitorScout-*-win-x64.exe` |
 
 ## 首次使用
 
