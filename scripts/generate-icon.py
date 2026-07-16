@@ -193,7 +193,7 @@ def main():
         "walt.e@example.net": 1024,
     }
     for name, px in mac_map.items():
-        icon.resize((px, px), Image.Resampling.LANCZOS).save(iconset / name)
+        icon.resize((px, px), Image.Resampling.LANCZOS).save(iconset / name, format="PNG")
 
     if sys.platform == "darwin":
         subprocess.check_call(["iconutil", "-c", "icns", str(iconset), "-o", str(OUT / "icon.icns")])
