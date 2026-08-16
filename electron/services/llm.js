@@ -134,7 +134,20 @@ class LLMService {
       throw new AppError(Codes.LLM, 'LLM 返回空内容');
     }
     this.stats.lastError = null;
-    return content;
+    // MiniMax-M3 等模型常把推理过程包在 <think>…</think> 里一并返回
+    return this._stripThink(content);
+  }
+
+  /**
+   * 去掉模型夹带的推理标签，保留最终回答（便于展示与 JSON 解析）。
+   */
+  _stripThink(content) {
+    if (typeof content !== 'string') return content;
+    let text = content.replace(/<think\b[^>]*>[\s\S]*?<\/think>/gi, '');
+    text = text.replace(/<thinking\b[^>]*>[\s\S]*?<\/thinking>/gi, '');
+    // 偶发未闭合标签：丢掉标签起点到文末前最后一段答案之前的噪声较危险，仅清掉残留开标签行
+    text = text.replace(/<\/?think(?:ing)?\b[^>]*>/gi, '');
+    return text.trim();
   }
 
   async chatJson(messages, options = {}) {
@@ -169,7 +182,7 @@ class LLMService {
 
   _parseJson(raw) {
     if (typeof raw !== 'string') return raw;
-    let text = raw.trim();
+    let text = this._stripThink(raw).trim();
     const fence = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
     if (fence) text = fence[1].trim();
     try {
