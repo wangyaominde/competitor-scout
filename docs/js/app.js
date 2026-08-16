@@ -3741,8 +3741,8 @@
           </div>
           <div class="form-group">
             <label>Model</label>
-            <input id="llm-model" type="text" value="${esc(llm.model || '')}" placeholder="MiniMax-M2 / gpt-4o-mini" />
-            <div class="hint">MiniMax：MiniMax-M2 · Kimi：kimi-k2.5 / moonshot-v1-128k（以控制台为准）</div>
+            <input id="llm-model" type="text" value="${esc(llm.model || '')}" placeholder="MiniMax-M3 / gpt-4o-mini" />
+            <div class="hint">MiniMax：MiniMax-M3 · Kimi：kimi-k2.5 / moonshot-v1-128k（以控制台为准）</div>
           </div>
           <div class="form-group">
             <label>Temperature</label>
@@ -3823,12 +3823,12 @@
       minimax: {
         provider: 'minimax',
         baseUrl: 'https://api.minimaxi.com/v1',
-        model: 'MiniMax-M2',
+        model: 'MiniMax-M3',
       },
       'minimax-intl': {
         provider: 'minimax',
         baseUrl: 'https://api.minimax.io/v1',
-        model: 'MiniMax-M2',
+        model: 'MiniMax-M3',
       },
       kimi: {
         provider: 'kimi',
@@ -4019,12 +4019,12 @@
         </div>
         <div class="form-group"><label>Base URL</label><input id="ob-base" type="url" value="${esc(llm.baseUrl || 'https://api.minimaxi.com/v1')}" /></div>
         <div class="form-group"><label>API Key</label><input id="ob-key" type="password" value="" placeholder="在对应开放平台获取 API Key" /></div>
-        <div class="form-group"><label>Model</label><input id="ob-model" type="text" value="${esc(llm.model || 'MiniMax-M2')}" placeholder="MiniMax-M2 / kimi-k2.5" />
-          <div class="hint">MiniMax：MiniMax-M2 · Kimi：kimi-k2.5 / moonshot-v1-128k</div>
+        <div class="form-group"><label>Model</label><input id="ob-model" type="text" value="${esc(llm.model || 'MiniMax-M3')}" placeholder="MiniMax-M3 / kimi-k2.5" />
+          <div class="hint">MiniMax：MiniMax-M3 · Kimi：kimi-k2.5 / moonshot-v1-128k</div>
         </div>`);
       const obPresets = {
-        minimax: { baseUrl: 'https://api.minimaxi.com/v1', model: 'MiniMax-M2' },
-        'minimax-intl': { baseUrl: 'https://api.minimax.io/v1', model: 'MiniMax-M2' },
+        minimax: { baseUrl: 'https://api.minimaxi.com/v1', model: 'MiniMax-M3' },
+        'minimax-intl': { baseUrl: 'https://api.minimax.io/v1', model: 'MiniMax-M3' },
         kimi: { baseUrl: 'https://api.moonshot.cn/v1', model: 'kimi-k2.5' },
         'kimi-intl': { baseUrl: 'https://api.moonshot.ai/v1', model: 'kimi-k2.5' },
         openai: { baseUrl: 'https://api.openai.com/v1', model: 'gpt-4o-mini' },

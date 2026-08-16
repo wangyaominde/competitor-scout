@@ -454,6 +454,25 @@ async function main() {
   } catch (e) {
     ok(e.code === Codes.PRECONDITION, 'LLM 缺配置');
   }
+  const llmStrip = new LLMService(() => ({
+    baseUrl: 'http://127.0.0.1:11434/v1',
+    model: 'x',
+    apiKey: '',
+  }));
+  ok(
+    llmStrip._stripThink('<think>reason</think>\n\nOK') === 'OK',
+    'stripThink 去掉 think 标签'
+  );
+  ok(
+    llmStrip._parseJson('<think>x</think>{"a":1}').a === 1,
+    'parseJson 容忍前置 think'
+  );
+  ok(appJsIncludesMiniMaxM3Preset(), 'UI 预设含 MiniMax-M3');
+
+  function appJsIncludesMiniMaxM3Preset() {
+    const appJs = fs.readFileSync(path.join(root, 'src/js/app.js'), 'utf8');
+    return appJs.includes("model: 'MiniMax-M3'") && !appJs.includes("model: 'MiniMax-M2'");
+  }
 
   // Frontend buildRoadmapVizModel logic reimplemented check
   console.log('\nI. 前端关键逻辑符号 / 契约');
